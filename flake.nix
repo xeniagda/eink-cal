@@ -14,7 +14,7 @@
   outputs = { self, nixpkgs, esp-idf, flake-utils }:
     flake-utils.lib.eachDefaultSystem (sys:
       let pkgs = import nixpkgs { system = sys; };
-          python = pkgs.python311.withPackages (ps: [ ps.ipython ps.numpy ps.pillow ps.requests ps.tqdm ps.caldav ps.toml ]);
+          python = pkgs.python313.withPackages (ps: [ ps.ipython ps.numpy ps.pillow ps.requests ps.tqdm ps.caldav ps.toml ]);
       in rec {
         devShells.esp = esp-idf.outputs.devShells.${sys}.esp-idf-full;
         devShells.py = pkgs.mkShell {
