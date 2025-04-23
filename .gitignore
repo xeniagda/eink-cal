@@ -1,0 +1,14 @@
+.direnv
+**/__pycache__
+bridge_pcb/bom
+bridge_pcb/eink_bridge-backups
+bridge_pcb/plots
+cal_render/secrets.toml
+cal_render/design.xcf
+eink_bridge/images
+eink_bridge/dither.py
+eink_bridge/serve.py
+eink_bridge/build
+eink_bridge/.cache
+eink_bridge/__pycache__
+eink_bridge/main/wifi_creds.h
