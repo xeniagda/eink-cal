@@ -28,12 +28,9 @@
           name = "cal-render";
           src = ./cal_render ;
 
-          secretsFile = ./cal_render/secrets.toml.sample ; # should be overridden
-
           buildPhase = ''
             mkdir -p $out/bin
             cp -r $src/* $out/bin/
-            cp ${self.secretsFile} $out/bin/secrets.toml
             cat > $out/bin/cal-render <<'EOF'
             #!/bin/sh
             ${python}/bin/python "$(dirname "$0")"/main.py "$@"

@@ -18,6 +18,7 @@ parser = argparse.ArgumentParser("cal-render")
 parser.add_argument("-d", "--date", required=False, help="Date (in YYYY-MM-DD) to render calendar for")
 parser.add_argument("-n", "--n-days", nargs=1, required=False, default=7, type=int, help="Number of days in the future to show")
 parser.add_argument("--dark", action="store_true", help="Dark mode")
+parser.add_argument("--secrets", dest="secrets_path", required=False, type=str, help="Path to calendar secrets TOML file", default=secrets_path)
 
 subparser = parser.add_subparsers(dest="subcommand")
 
@@ -28,6 +29,7 @@ parser_serve.add_argument("-o", "--once", action="store_true", help="Quit after 
 parser_serve.add_argument("-p", "--port", default=2137, type=int, help="Port to listen on")
 
 env = parser.parse_args()
+secrets_path = env.secrets_path or secrets_path
 
 def render_date() -> date:
     if env.date is None:
@@ -36,6 +38,7 @@ def render_date() -> date:
 
 # early exit if the date is unparsable
 print("(initially) working with", render_date())
+print("loading secrets from", secrets_path)
 
 if env.subcommand == "preview":
     secrets = Secrets.from_obj(toml.load(open(secrets_path, "r")))
