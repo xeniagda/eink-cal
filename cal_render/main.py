@@ -5,6 +5,9 @@ from canvas import Background
 from serve import send
 import socket
 import toml
+import os
+
+secrets_path = os.path.join(os.path.dirname(__file__), "secrets.toml")
 
 from datetime import datetime, date
 
@@ -35,7 +38,7 @@ def render_date() -> date:
 print("(initially) working with", render_date())
 
 if env.subcommand == "preview":
-    secrets = Secrets.from_obj(toml.load(open("./secrets.toml", "r")))
+    secrets = Secrets.from_obj(toml.load(open(secrets_path, "r")))
 
     events = [ev for cal in secrets.calendars for ev in cal.load_events(render_date(), env.n_days)]
 
@@ -45,7 +48,7 @@ if env.subcommand == "preview":
 
 elif env.subcommand == "serve":
     while True:
-        secrets = Secrets.from_obj(toml.load(open("./secrets.toml", "r")))
+        secrets = Secrets.from_obj(toml.load(open(secrets_path, "r")))
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)

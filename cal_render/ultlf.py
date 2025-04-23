@@ -1,10 +1,13 @@
 from __future__ import annotations
 from typing import List, Optional
 import json
+import os
 
-baselines = json.load(open("ultlf/trimmed_baselines.json"))
-codepoints = json.load(open("ultlf/codepoints.json"))
-data = json.load(open("ultlf/data.json"))
+basepath = os.path.dirname(__file__)
+
+baselines = json.load(open(os.path.join(basepath, "ultlf/trimmed_baselines.json")))
+codepoints = json.load(open(os.path.join(basepath, "ultlf/codepoints.json")))
+data = json.load(open(os.path.join(basepath, "ultlf/data.json")))
 
 codepoint2idx = {}
 for i, p in enumerate(codepoints):
