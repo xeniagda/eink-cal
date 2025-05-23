@@ -9,8 +9,8 @@ import requests
 import icalendar
 import re
 
-TE_COURSE = re.compile(r"^(?:Kurskod: (?P<kurskod>[^.]+). Kursnamn: (?P<kursnamn>[^,]+), )+(?P<sak>.*)$")
-TE_RUBRIK= re.compile(r"^(?:Rubrik: )(?P<rubrik>.+)$")
+TE_COURSE = re.compile(r"^(?:Kurskod: (?P<kurskod>[^.]+)\. Kursnamn: (?P<kursnamn>[^,]+)(, )?)+(?P<sak>.*)$")
+TE_RUBRIK = re.compile(r"^(?:Rubrik: )(?P<rubrik>.+)$")
 def timeedit_parse(summary):
     m = re.match(TE_COURSE, summary)
     if m:
