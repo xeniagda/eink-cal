@@ -13,13 +13,18 @@ TE_COURSE = re.compile(r"^(?:Kurskod: (?P<kurskod>[^.]+). Kursnamn: (?P<kursnamn
 TE_RUBRIK= re.compile(r"^(?:Rubrik: )(?P<rubrik>.+)$")
 def timeedit_parse(summary):
     m = re.match(TE_COURSE, summary)
-    if not m:
-        m = re.match(TE_RUBRIK, summary)
+    if m:
+        kod = m.group("kurskod")
+        namn = m.group("kursnamn")
+        sak = m.group("sak")
+        return f"{kod} — {sak} ({namn})"
+
+    m = re.match(TE_RUBRIK, summary)
+    if m:
         return m.group("rubrik")
-    kod = m.group("kurskod")
-    namn = m.group("kursnamn")
-    sak = m.group("sak")
-    return f"{kod} — {sak} ({namn})"
+
+    print(f"oddball: {summary!r}")
+    return summary
 
 @dataclass
 class Calendar:
